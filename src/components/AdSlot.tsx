@@ -9,6 +9,7 @@ interface AdSlotProps {
 const getAdRawHtml = (slotId: string): string => {
   switch (slotId) {
     case 'ad-slot-top':
+    case 'ad-slot-footer':
       return `<script>
   atOptions = {
     'key' : '2e08743360648b600fb0a1959aa67d0d',
@@ -59,9 +60,6 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
   };
 
   useEffect(() => {
-    // Keep footer as placeholder without injecting code
-    if (id === 'ad-slot-footer') return;
-
     const container = containerRef.current;
     if (!container) return;
 
@@ -79,21 +77,6 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       oldScript.parentNode?.replaceChild(newScript, oldScript);
     });
   }, [id]);
-
-  // Keep ad-slot-footer as a clean placeholder
-  if (id === 'ad-slot-footer') {
-    return (
-      <div
-        id={id}
-        data-ad-unit={id}
-        aria-label={`Advertisement: ${id}`}
-        className={`border border-dashed border-[#1E2E52] hover:border-[#00F0FF]/50 bg-[#0D1527]/70 text-[#64748B] text-xs font-mono tracking-wider uppercase rounded-[4px] flex flex-col items-center justify-center p-3 text-center transition-all my-4 ${getFormatClasses()} ${className}`}
-      >
-        <span className="text-[11px] font-medium tracking-widest text-[#94A3B8]">Ad Placeholder</span>
-        <span className="text-[10px] text-[#00F0FF]/80 mt-0.5">#{id}</span>
-      </div>
-    );
-  }
 
   const rawHtml = getAdRawHtml(id);
 
