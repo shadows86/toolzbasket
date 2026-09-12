@@ -9,7 +9,6 @@ interface AdSlotProps {
 const getAdRawHtml = (slotId: string): string => {
   switch (slotId) {
     case 'ad-slot-top':
-    case 'ad-slot-footer':
       return `<script>
   atOptions = {
     'key' : '2e08743360648b600fb0a1959aa67d0d',
@@ -20,6 +19,18 @@ const getAdRawHtml = (slotId: string): string => {
   };
 </script>
 <script src="https://www.highrevenueformat.com/2e08743360648b600fb0a1959aa67d0d/invoke.js"></script>`;
+
+    case 'ad-slot-footer':
+      return `<script>
+  atOptions = {
+    'key' : '871c57e3bf38c300ef02b1564a6ff2d5',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highrevenueformat.com/871c57e3bf38c300ef02b1564a6ff2d5/invoke.js"></script>`;
 
     case 'ad-slot-sidebar':
       return `<script>
@@ -52,7 +63,7 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       case 'infeed':
         return 'w-full min-h-[90px] md:min-h-[120px] max-w-3xl mx-auto';
       case 'footer':
-        return 'w-full min-h-[90px] max-w-4xl mx-auto';
+        return 'w-full min-h-[60px] max-w-[468px] mx-auto';
       case 'banner':
       default:
         return 'w-full min-h-[90px] max-w-4xl mx-auto';
