@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --color-canvas: #0A0F1D;
+  --color-panel: #10182E;
+  --color-subpanel: #15223E;
+  --color-border-dark: #1E2E52;
+  --color-neon-cyan: #00F0FF;
+  --color-neon-blue: #2563EB;
+  --color-neon-emerald: #10B981;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0A0F1D;
+  color: #F8FAFC;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Neon & Dark Blue Corporate Panels */
+.corp-panel {
+  background-color: #10182E;
+  border: 1.5px solid #1E2E52;
+  border-radius: 4px;
+}
+
+.corp-panel-elevated {
+  background-color: #141F3A;
+  border: 1.5px solid #233660;
+  border-radius: 4px;
+}
+
+.corp-compartment {
+  background-color: #0D1527;
+  border: 1px solid #1E2E52;
+  border-radius: 4px;
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px -3px rgba(0, 240, 255, 0.25);
+}
+
+.neon-glow-subtle {
+  box-shadow: 0 0 12px -2px rgba(0, 240, 255, 0.15);
+}
+
+.neon-border-active {
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+

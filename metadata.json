@@ -1,0 +1,6 @@
+{
+  "name": "Toolzbasket",
+  "description": "Your basket of handy everyday tools. Free client-side tools starting with a fast, customizable QR code generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
