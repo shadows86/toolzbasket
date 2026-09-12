@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { NativeAdBanner } from './NativeAdBanner';
+
+export { NativeAdBanner };
 
 interface AdSlotProps {
   id: 'ad-slot-top' | 'ad-slot-sidebar' | 'ad-slot-infeed' | 'ad-slot-footer' | string;
@@ -44,10 +47,6 @@ const getAdRawHtml = (slotId: string): string => {
 </script>
 <script src="https://www.highrevenueformat.com/358d1c7f8e4c68b22da2b32bcb729ca7/invoke.js"></script>`;
 
-    case 'ad-slot-infeed':
-      return `<script async="async" data-cfasync="false" src="https://pl31311960.profitableratecpmnetwork.com/be0e6821673812f66b00df7832f323a9/invoke.js"></script>
-<div id="container-be0e6821673812f66b00df7832f323a9"></div>`;
-
     default:
       return '';
   }
@@ -71,6 +70,8 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
   };
 
   useEffect(() => {
+    if (id === 'ad-slot-infeed') return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -89,6 +90,24 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
     });
   }, [id]);
 
+  if (id === 'ad-slot-infeed') {
+    return (
+      <div
+        id={id}
+        data-ad-unit={id}
+        aria-label={`Advertisement: ${id}`}
+        className={`flex items-center justify-center overflow-x-auto overflow-y-hidden my-4 ${getFormatClasses()} ${className}`}
+      >
+        <NativeAdBanner
+          scriptSrc="https://pl31311960.profitableratecpmnetwork.com/be0e6821673812f66b00df7832f323a9/invoke.js"
+          containerId="container-be0e6821673812f66b00df7832f323a9"
+          dataCfasync="false"
+          async={true}
+        />
+      </div>
+    );
+  }
+
   const rawHtml = getAdRawHtml(id);
 
   return (
@@ -102,3 +121,4 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
     />
   );
 };
+
