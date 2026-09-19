@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { QrTool } from '../components/QrTool';
 import { AdSlot } from '../components/AdSlot';
-import { ConditionalAdContainer } from '../components/ConditionalAdContainer';
 import {
   Layers,
   CheckCircle2,
@@ -20,37 +19,23 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
-  const [headerAdFailed, setHeaderAdFailed] = useState(false);
-  const [leftSidebarAdFailed, setLeftSidebarAdFailed] = useState(false);
-  const [rightSidebarAdFailed, setRightSidebarAdFailed] = useState(false);
-  const [inContentAdFailed, setInContentAdFailed] = useState(false);
-
   return (
     <div className="w-full space-y-4 sm:space-y-5">
       {/* 1. HEADER BANNER AD (728x90 leaderboard desktop / 320x50 mobile) */}
-      {!headerAdFailed && (
-        <div
-          id="header-banner-ad-container"
-          className="ad-container-default ad-header-slot w-full flex justify-center bg-transparent min-h-[50px] md:min-h-[90px] overflow-visible"
-          style={{
-            display: 'block',
-            overflow: 'visible',
-            visibility: 'visible',
-            opacity: 1,
-            background: 'transparent',
-          }}
-        >
-          <AdSlot
-            id="ad-slot-top"
-            format="banner"
-            onAdStatusChange={(status) => {
-              if (status === 'failed') {
-                setHeaderAdFailed(true);
-              }
-            }}
-          />
-        </div>
-      )}
+      <div
+        id="header-banner-ad-container"
+        className="ad-container-default ad-header-slot ad-shimmer w-full flex justify-center bg-transparent min-h-[50px] md:min-h-[90px] overflow-visible"
+        style={{
+          display: 'block',
+          visibility: 'visible',
+          opacity: 1,
+          overflow: 'visible',
+          minHeight: '90px',
+          background: 'transparent',
+        }}
+      >
+        <AdSlot id="ad-slot-top" format="banner" />
+      </div>
 
       {/* Main Tool Introduction Banner / Minimal Gap Hero Heading */}
       <div className="border-b border-[#1E2E52] pb-2.5">
@@ -73,107 +58,100 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       {/* Layout: Left Sidebar (Desktop only) + Center Main Tool & Content + Right Sidebar */}
       <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start w-full">
         {/* 3. LEFT SIDEBAR AD (300x250) - Mirror of right column, Desktop only (>=1024px) */}
-        {!leftSidebarAdFailed && (
-          <aside
-            id="left-sidebar-ad-container"
-            className="hidden lg:block w-[300px] shrink-0 space-y-5"
-            style={{
-              display: 'block',
-              minHeight: 'auto',
-              overflow: 'visible',
-              visibility: 'visible',
-              opacity: 1,
-            }}
-          >
-            {/* Ad Container with small gray Advertisement label */}
-            <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
-              <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
-                <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
-                  Advertisement
-                </span>
-                <span className="text-[10px] font-mono text-[#475569]">
-                  300 × 250
-                </span>
-              </div>
-
-              <div
-                id="left-sidebar-ad-box"
-                className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
-                style={{
-                  display: 'block',
-                  minHeight: '250px',
-                  overflow: 'visible',
-                  visibility: 'visible',
-                  opacity: 1,
-                }}
-              >
-                <AdSlot
-                  id="ad-slot-left-sidebar"
-                  format="sidebar"
-                  onAdStatusChange={(status) => {
-                    if (status === 'failed') {
-                      setLeftSidebarAdFailed(true);
-                    }
-                  }}
-                />
-              </div>
+        <aside
+          id="left-sidebar-ad-container"
+          className="hidden lg:block w-[300px] shrink-0 space-y-5"
+          style={{
+            display: 'block',
+            visibility: 'visible',
+            opacity: 1,
+            overflow: 'visible',
+          }}
+        >
+          {/* Ad Container with small gray Advertisement label */}
+          <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
+            <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
+              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
+                Advertisement
+              </span>
+              <span className="text-[10px] font-mono text-[#475569]">
+                300 × 250
+              </span>
             </div>
 
-            {/* Quick Sizing Calibration Card (Mirror of right column) */}
-            <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
-              <p className="font-heading text-xs font-bold text-[#F8FAFC]">
-                Printing & Scanning
-              </p>
-              <p className="text-xs text-[#94A3B8] mt-1 mb-3">
-                Maintain a 10:1 distance-to-size ratio and at least 2cm for handheld scans.
-              </p>
-              <button
-                onClick={() => onNavigate('/faq')}
-                className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
-              >
-                View FAQ Answers
-              </button>
+            <div
+              id="left-sidebar-ad-box"
+              className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
+              style={{
+                display: 'block',
+                visibility: 'visible',
+                opacity: 1,
+                overflow: 'visible',
+                minHeight: '250px',
+              }}
+            >
+              <AdSlot
+                id="ad-slot-left-sidebar"
+                format="sidebar"
+              />
             </div>
-          </aside>
-        )}
+          </div>
+
+          {/* Quick Sizing Calibration Card (Mirror of right column) */}
+          <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
+            <p className="font-heading text-xs font-bold text-[#F8FAFC]">
+              Printing & Scanning
+            </p>
+            <p className="text-xs text-[#94A3B8] mt-1 mb-3">
+              Maintain a 10:1 distance-to-size ratio and at least 2cm for handheld scans.
+            </p>
+            <button
+              onClick={() => onNavigate('/faq')}
+              className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
+            >
+              View FAQ Answers
+            </button>
+          </div>
+        </aside>
 
         {/* Center: Main QR Tool & In-Depth Content */}
         <div className="flex-1 min-w-0 space-y-6 w-full">
           {/* Main QR Tool */}
-          <QrTool fullWidth={leftSidebarAdFailed && rightSidebarAdFailed} />
+          <QrTool />
 
           {/* 4. IN-CONTENT AD (468x60 or 300x250) - Inserted between tool and FAQ/Guide */}
-          {!inContentAdFailed && (
-            <div
-              id="incontent-ad-wrapper"
-              className="w-full flex flex-col items-center justify-center my-8 mx-auto"
-            >
-              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider mb-1.5 select-none">
+          <div
+            id="incontent-ad-wrapper"
+            className="w-full flex flex-col items-center justify-center my-8 mx-auto"
+            style={{
+              display: 'block',
+              visibility: 'visible',
+              opacity: 1,
+              overflow: 'visible',
+            }}
+          >
+            <div className="flex justify-center w-full">
+              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider mb-1.5 select-none text-center">
                 Sponsored
               </span>
-              <div
-                id="incontent-ad-container"
-                className="ad-container-default ad-incontent-slot ad-shimmer w-full max-w-[468px] flex items-center justify-center min-h-[90px]"
-                style={{
-                  display: 'block',
-                  minHeight: '90px',
-                  overflow: 'visible',
-                  visibility: 'visible',
-                  opacity: 1,
-                }}
-              >
-                <AdSlot
-                  id="ad-slot-incontent"
-                  format="incontent"
-                  onAdStatusChange={(status) => {
-                    if (status === 'failed') {
-                      setInContentAdFailed(true);
-                    }
-                  }}
-                />
-              </div>
             </div>
-          )}
+            <div
+              id="incontent-ad-container"
+              className="ad-container-default ad-incontent-slot ad-shimmer w-full max-w-[468px] mx-auto flex items-center justify-center min-h-[90px]"
+              style={{
+                display: 'block',
+                visibility: 'visible',
+                opacity: 1,
+                overflow: 'visible',
+                minHeight: '90px',
+              }}
+            >
+              <AdSlot
+                id="ad-slot-incontent"
+                format="incontent"
+              />
+            </div>
+          </div>
 
           {/* How to Use & FAQs Quick Section (inserted below in-content ad) */}
           <section
@@ -318,51 +296,44 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         {/* 2. RIGHT SIDEBAR AD (300x250) + System Specifications */}
-        {!rightSidebarAdFailed && (
-          <aside
-            id="right-sidebar-ad-container"
-            className="hidden md:block w-full lg:w-[300px] shrink-0 space-y-5"
-            style={{
-              display: 'block',
-              minHeight: 'auto',
-              overflow: 'visible',
-              visibility: 'visible',
-              opacity: 1,
-            }}
-          >
-            {/* Right column ad slot: styled container with Advertisement label */}
-            <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
-              <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
-                <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
-                  Advertisement
-                </span>
-                <span className="text-[10px] font-mono text-[#475569]">
-                  300 × 250
-                </span>
-              </div>
-
-              <div
-                id="right-sidebar-ad-box"
-                className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
-                style={{
-                  display: 'block',
-                  minHeight: '250px',
-                  overflow: 'visible',
-                  visibility: 'visible',
-                  opacity: 1,
-                }}
-              >
-                <AdSlot
-                  id="ad-slot-sidebar"
-                  format="sidebar"
-                  onAdStatusChange={(status) => {
-                    if (status === 'failed') {
-                      setRightSidebarAdFailed(true);
-                    }
-                  }}
-                />
-              </div>
+        <aside
+          id="right-sidebar-ad-container"
+          className="hidden md:block w-full lg:w-[300px] shrink-0 space-y-5"
+          style={{
+            display: 'block',
+            visibility: 'visible',
+            opacity: 1,
+            overflow: 'visible',
+          }}
+        >
+          {/* Right column ad slot: styled container with Advertisement label */}
+          <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
+            <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
+              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
+                Advertisement
+              </span>
+              <span className="text-[10px] font-mono text-[#475569]">
+                300 × 250
+              </span>
             </div>
+
+            <div
+              id="right-sidebar-ad-box"
+              className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
+              style={{
+                display: 'block',
+                visibility: 'visible',
+                opacity: 1,
+                overflow: 'visible',
+                minHeight: '250px',
+              }}
+            >
+              <AdSlot
+                id="ad-slot-sidebar"
+                format="sidebar"
+              />
+            </div>
+          </div>
 
             {/* System Technical Specifications */}
             <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-4 space-y-3 shadow-lg">
@@ -405,8 +376,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </button>
             </div>
           </aside>
-        )}
-      </div>
+        </div>
 
       {/* More Tools Coming Soon Compartment */}
       <section

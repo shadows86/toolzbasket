@@ -47,7 +47,6 @@ export default function App() {
   };
 
   const [currentPath, setCurrentPath] = useState<PageRoute>(getInitialPath);
-  const [footerAdFailed, setFooterAdFailed] = useState(false);
 
   const navigate = (path: PageRoute) => {
     setCurrentPath(path);
@@ -142,29 +141,22 @@ export default function App() {
       </main>
 
       {/* 5. FOOTER BANNER AD (728x90) - Just above footer, full width */}
-      {!footerAdFailed && (
-        <div
-          id="footer-banner-ad-container"
-          className="ad-container-default ad-footer-slot ad-shimmer w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 flex justify-center min-h-[90px]"
-          style={{
-            display: 'block',
-            minHeight: '90px',
-            overflow: 'visible',
-            visibility: 'visible',
-            opacity: 1,
-          }}
-        >
-          <AdSlot
-            id="ad-slot-footer"
-            format="footer"
-            onAdStatusChange={(status) => {
-              if (status === 'failed') {
-                setFooterAdFailed(true);
-              }
-            }}
-          />
-        </div>
-      )}
+      <div
+        id="footer-banner-ad-container"
+        className="ad-container-default ad-footer-slot ad-shimmer w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 flex justify-center min-h-[90px]"
+        style={{
+          display: 'block',
+          visibility: 'visible',
+          opacity: 1,
+          overflow: 'visible',
+          minHeight: '90px',
+        }}
+      >
+        <AdSlot
+          id="ad-slot-footer"
+          format="footer"
+        />
+      </div>
 
       {/* Global Footer */}
       <Footer onNavigate={navigate} />

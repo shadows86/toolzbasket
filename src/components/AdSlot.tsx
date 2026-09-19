@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NativeAdBanner } from './NativeAdBanner';
 import { ConditionalAdContainer } from './ConditionalAdContainer';
 
@@ -94,35 +94,7 @@ const getAdRawHtml = (slotId: string): string => {
   }
 };
 
-export const checkAd = (
-  container: HTMLElement,
-  onStatusChange?: (status: 'loaded' | 'failed') => void
-) => {
-  let attempts = 0;
-  const interval = setInterval(() => {
-    attempts++;
-    const iframe = container.querySelector('iframe');
-    const hasContent = iframe && 
-      iframe.offsetWidth > 0 && 
-      iframe.offsetHeight > 0;
-    
-    if (hasContent) {
-      container.style.display = 'block';
-      container.classList.remove('ad-shimmer');
-      onStatusChange?.('loaded');
-      clearInterval(interval);
-    } else if (attempts >= 10) {
-      // Only hide after 10 seconds (10 attempts x 1000ms)
-      container.style.display = 'none';
-      onStatusChange?.('failed');
-      clearInterval(interval);
-    }
-  }, 1000);
-
-  return () => clearInterval(interval);
-};
-
-export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className = '', onAdStatusChange }) => {
+export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const getFormatClasses = () => {
@@ -137,7 +109,7 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
         return 'w-full max-w-4xl mx-auto min-h-[90px] ad-footer-slot ad-shimmer';
       case 'banner':
       default:
-        return 'w-full max-w-4xl mx-auto min-h-[50px] md:min-h-[90px] ad-header-slot bg-transparent';
+        return 'w-full max-w-4xl mx-auto min-h-[50px] md:min-h-[90px] ad-header-slot bg-transparent ad-shimmer';
     }
   };
 
@@ -158,14 +130,7 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       newScript.text = oldScript.text || oldScript.innerHTML;
       oldScript.parentNode?.replaceChild(newScript, oldScript);
     });
-
-    // Apply checkAd() on page load
-    const stopChecking = checkAd(container, onAdStatusChange);
-
-    return () => {
-      stopChecking();
-    };
-  }, [id, onAdStatusChange]);
+  }, [id]);
 
   if (id === 'ad-slot-infeed') {
     return (
@@ -176,10 +141,10 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
         className={`ad-container-default flex items-center justify-center my-4 ${getFormatClasses()} ${className}`}
         style={{
           display: 'block',
-          minHeight: '90px',
-          overflow: 'visible',
           visibility: 'visible',
           opacity: 1,
+          overflow: 'visible',
+          minHeight: '90px',
         }}
       >
         <NativeAdBanner
@@ -203,15 +168,15 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       className={`ad-container-default flex items-center justify-center ${getFormatClasses()} ${className}`}
       style={{
         display: 'block',
-        minHeight:
-          format === 'banner'
-            ? undefined
-            : format === 'sidebar'
-            ? '250px'
-            : '90px',
-        overflow: 'visible',
         visibility: 'visible',
         opacity: 1,
+        overflow: 'visible',
+        minHeight:
+          format === 'sidebar'
+            ? '250px'
+            : format === 'banner'
+            ? '90px'
+            : '90px',
         background: format === 'banner' ? 'transparent' : undefined,
       }}
       dangerouslySetInnerHTML={{ __html: rawHtml }}
