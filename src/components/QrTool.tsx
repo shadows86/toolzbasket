@@ -17,7 +17,11 @@ import {
 } from 'lucide-react';
 import { QrConfig, QrSizeOption, ErrorCorrectionLevel } from '../types';
 
-export const QrTool: React.FC = () => {
+interface QrToolProps {
+  fullWidth?: boolean;
+}
+
+export const QrTool: React.FC<QrToolProps> = ({ fullWidth = false }) => {
   const [config, setConfig] = useState<QrConfig>({
     value: 'https://toolzbasket.com',
     size: 'medium',
@@ -171,9 +175,9 @@ export const QrTool: React.FC = () => {
   return (
     <section id="qr-tool-section" className="w-full">
       {/* 2-Column Corporate Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className={`grid grid-cols-1 ${fullWidth ? 'lg:grid-cols-12 gap-7' : 'lg:grid-cols-12 gap-6'} items-start`}>
         {/* Left Column: Input & Options Compartment */}
-        <div className="lg:col-span-7 bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-5 sm:p-6 shadow-xl relative">
+        <div className={`${fullWidth ? 'lg:col-span-6' : 'lg:col-span-7'} bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-5 sm:p-6 shadow-xl relative`}>
           <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#00F0FF]/30 to-transparent" />
 
           {/* Section header bar */}
@@ -582,7 +586,7 @@ export const QrTool: React.FC = () => {
         </div>
 
         {/* Right Column: Neon & Dark Blue Corporate Mount / HUD Preview */}
-        <div className="lg:col-span-5 flex flex-col items-center">
+        <div className={`${fullWidth ? 'lg:col-span-6' : 'lg:col-span-5'} flex flex-col items-center w-full`}>
           <div className="w-full relative pt-4">
             {/* Top Corporate Fixture with Neon Laser Accent */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">

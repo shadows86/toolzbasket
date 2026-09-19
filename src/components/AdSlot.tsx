@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NativeAdBanner } from './NativeAdBanner';
+import { ConditionalAdContainer } from './ConditionalAdContainer';
 
-export { NativeAdBanner };
+export { NativeAdBanner, ConditionalAdContainer };
 
 interface AdSlotProps {
   id: 'ad-slot-top' | 'ad-slot-sidebar' | 'ad-slot-infeed' | 'ad-slot-footer' | string;
   format?: 'banner' | 'sidebar' | 'infeed' | 'footer';
   className?: string;
+  onAdStatusChange?: (status: 'loading' | 'loaded' | 'failed') => void;
 }
 
 const getAdRawHtml = (slotId: string): string => {
@@ -52,8 +54,9 @@ const getAdRawHtml = (slotId: string): string => {
   }
 };
 
-export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className = '' }) => {
+export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className = '', onAdStatusChange }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [adFailed, setAdFailed] = useState(false);
 
   const getFormatClasses = () => {
     switch (format) {
@@ -65,7 +68,8 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
         return 'w-full min-h-[60px] max-w-[468px] mx-auto';
       case 'banner':
       default:
-        return 'w-full min-h-[90px] max-w-4xl mx-auto';
+        // Use min-h-0 so unrendered ads do not force empty blank space
+        return 'w-full min-h-0 max-w-4xl mx-auto';
     }
   };
 
@@ -88,7 +92,52 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       newScript.text = oldScript.text || oldScript.innerHTML;
       oldScript.parentNode?.replaceChild(newScript, oldScript);
     });
-  }, [id]);
+
+    // Check if ad renders successfully within 2000ms
+    const checkLoaded = (): boolean => {
+      if (!container) return false;
+      const iframe = container.querySelector('iframe') as HTMLIFrameElement | null;
+      if (iframe && (iframe.offsetHeight > 10 || iframe.getBoundingClientRect().height > 10)) {
+        return true;
+      }
+      const allElements = container.querySelectorAll('*');
+      for (let i = 0; i < allElements.length; i++) {
+        const el = allElements[i] as HTMLElement;
+        const tag = el.tagName ? el.tagName.toLowerCase() : '';
+        if (tag !== 'script' && tag !== 'style') {
+          const rect = el.getBoundingClientRect();
+          if (rect.height > 10 && rect.width > 10) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    const observer = new MutationObserver(() => {
+      if (checkLoaded()) {
+        onAdStatusChange?.('loaded');
+      }
+    });
+    observer.observe(container, { childList: true, subtree: true });
+
+    const timer = setTimeout(() => {
+      if (!container) return;
+
+      const isLoaded = checkLoaded();
+      if (!isLoaded) {
+        setAdFailed(true);
+        onAdStatusChange?.('failed');
+      } else {
+        onAdStatusChange?.('loaded');
+      }
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, [id, onAdStatusChange]);
 
   if (id === 'ad-slot-infeed') {
     return (
@@ -116,9 +165,29 @@ export const AdSlot: React.FC<AdSlotProps> = ({ id, format = 'banner', className
       ref={containerRef}
       data-ad-unit={id}
       aria-label={`Advertisement: ${id}`}
-      className={`flex items-center justify-center overflow-x-auto overflow-y-hidden my-4 ${getFormatClasses()} ${className}`}
+      hidden={adFailed}
+      className={`header-ad-container flex items-center justify-center overflow-x-auto overflow-y-hidden transition-all duration-300 ease-in-out ${
+        adFailed ? 'ad-failed' : format === 'banner' ? 'my-2' : 'my-4'
+      } ${getFormatClasses()} ${className}`}
+      style={{
+        minHeight: 0,
+        overflow: 'hidden',
+        transition: 'all 0.3s ease',
+        ...(adFailed
+          ? {
+              height: 0,
+              minHeight: 0,
+              maxHeight: 0,
+              margin: 0,
+              padding: 0,
+              display: 'none',
+              visibility: 'hidden',
+            }
+          : {}),
+      }}
       dangerouslySetInnerHTML={{ __html: rawHtml }}
     />
   );
 };
+
 
