@@ -56,24 +56,59 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
-/* Header Ad Container & Fallback Collapse Rules */
-.header-ad-container {
-  min-height: 0;
-  overflow: hidden;
-  transition: all 0.3s ease;
+/* Shimmer Loading Animation for Ad Containers */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
-.ad-failed {
-  height: 0 !important;
-  min-height: 0 !important;
-  max-height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: none !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+.ad-shimmer {
+  background: linear-gradient(
+    90deg, 
+    transparent 25%, 
+    rgba(255, 255, 255, 0.03) 50%, 
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Default CSS for ALL ad container divs */
+.ad-container-default,
+.ad-slot-container,
+.header-ad-container {
+  display: block;
+  min-height: auto;
+  overflow: visible;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Header ad slot: min-height 50px mobile, 90px desktop, transparent background */
+.ad-header-slot {
+  min-height: 50px;
+  background: transparent !important;
+}
+
+@media (min-width: 768px) {
+  .ad-header-slot {
+    min-height: 90px;
+  }
+}
+
+/* Sidebar ad slots (left and right): 250px min-height while loading */
+.ad-sidebar-slot {
+  min-height: 250px;
+}
+
+/* In-content and footer ad slots: 90px min-height while loading */
+.ad-incontent-slot,
+.ad-footer-slot {
+  min-height: 90px;
 }
 
 

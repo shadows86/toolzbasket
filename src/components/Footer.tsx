@@ -1,7 +1,6 @@
 import React from 'react';
 import { ShoppingBasket } from 'lucide-react';
 import { PageRoute } from '../types';
-import { AdSlot } from './AdSlot';
 
 interface FooterProps {
   onNavigate: (path: PageRoute) => void;
@@ -10,14 +9,9 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="w-full bg-[#080D1A] border-t border-[#1E2E52] mt-10 py-6 text-[#94A3B8]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* Footer Ad Slot */}
-        <div className="w-full flex justify-center">
-          <AdSlot id="ad-slot-footer" format="footer" />
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Minimal Navigation & Brand Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#1E2E52]/60 text-xs">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           {/* Brand */}
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-[3px] border border-[#00F0FF]/50 bg-[#10182E] flex items-center justify-center text-[#00F0FF]">

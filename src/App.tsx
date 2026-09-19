@@ -9,6 +9,7 @@ import { AboutPage } from './pages/AboutPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { ContactPage } from './pages/ContactPage';
+import { AdSlot } from './components/AdSlot';
 
 const pageTitles: Record<PageRoute, string> = {
   '/': 'Toolzbasket — Free In-Browser QR Code Generator',
@@ -46,6 +47,7 @@ export default function App() {
   };
 
   const [currentPath, setCurrentPath] = useState<PageRoute>(getInitialPath);
+  const [footerAdFailed, setFooterAdFailed] = useState(false);
 
   const navigate = (path: PageRoute) => {
     setCurrentPath(path);
@@ -138,6 +140,31 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {renderCurrentPage()}
       </main>
+
+      {/* 5. FOOTER BANNER AD (728x90) - Just above footer, full width */}
+      {!footerAdFailed && (
+        <div
+          id="footer-banner-ad-container"
+          className="ad-container-default ad-footer-slot ad-shimmer w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 flex justify-center min-h-[90px]"
+          style={{
+            display: 'block',
+            minHeight: '90px',
+            overflow: 'visible',
+            visibility: 'visible',
+            opacity: 1,
+          }}
+        >
+          <AdSlot
+            id="ad-slot-footer"
+            format="footer"
+            onAdStatusChange={(status) => {
+              if (status === 'failed') {
+                setFooterAdFailed(true);
+              }
+            }}
+          />
+        </div>
+      )}
 
       {/* Global Footer */}
       <Footer onNavigate={navigate} />
