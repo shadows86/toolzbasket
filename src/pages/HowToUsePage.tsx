@@ -1,5 +1,4 @@
 import React from 'react';
-import { AdSlot } from '../components/AdSlot';
 import { PageRoute } from '../types';
 
 interface HowToUsePageProps {
@@ -9,9 +8,6 @@ interface HowToUsePageProps {
 export const HowToUsePage: React.FC<HowToUsePageProps> = ({ onNavigate }) => {
   return (
     <div className="w-full space-y-8">
-      {/* Top Ad Slot */}
-      <AdSlot id="ad-slot-top" format="banner" />
-
       {/* Page Header */}
       <div className="border-b border-[#1E2E52] pb-4">
         <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F8FAFC]">
@@ -80,9 +76,6 @@ export const HowToUsePage: React.FC<HowToUsePageProps> = ({ onNavigate }) => {
             </div>
           </div>
         </div>
-
-        {/* Mid-content Ad Slot */}
-        <AdSlot id="ad-slot-infeed" format="infeed" />
 
         {/* Step 3 */}
         <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-6 sm:p-7 shadow-lg">

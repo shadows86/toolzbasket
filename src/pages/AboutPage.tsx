@@ -1,5 +1,4 @@
 import React from 'react';
-import { AdSlot } from '../components/AdSlot';
 import { ShoppingBasket, Shield, Cpu, Gauge } from 'lucide-react';
 import { PageRoute } from '../types';
 
@@ -10,9 +9,6 @@ interface AboutPageProps {
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   return (
     <div className="w-full space-y-8">
-      {/* Top Ad Slot */}
-      <AdSlot id="ad-slot-top" format="banner" />
-
       {/* Page Header */}
       <div className="border-b border-[#1E2E52] pb-4">
         <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F8FAFC]">
@@ -88,9 +84,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </p>
         </div>
       </div>
-
-      {/* Mid-page Ad Slot */}
-      <AdSlot id="ad-slot-infeed" format="infeed" />
 
       {/* Roadmap & Suggestions Box */}
       <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">

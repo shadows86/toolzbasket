@@ -1,5 +1,4 @@
 import React from 'react';
-import { AdSlot } from '../components/AdSlot';
 import { PageRoute } from '../types';
 import { CheckSquare, ShieldAlert } from 'lucide-react';
 
@@ -10,9 +9,6 @@ interface TermsPageProps {
 export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
   return (
     <div className="w-full space-y-8">
-      {/* Top Ad Slot */}
-      <AdSlot id="ad-slot-top" format="banner" />
-
       {/* Page Header */}
       <div className="border-b border-[#1E2E52] pb-4">
         <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F8FAFC]">
@@ -65,11 +61,6 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
             <li>Misrepresenting generated artifacts as official endorsements or certifications from Toolzbasket.</li>
           </ul>
         </section>
-
-        {/* Infeed Ad Slot */}
-        <div className="py-2">
-          <AdSlot id="ad-slot-infeed" format="infeed" />
-        </div>
 
         {/* Disclaimer of Warranties */}
         <section className="space-y-3 pt-4 border-t border-[#1E2E52]">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { AdSlot } from '../components/AdSlot';
 import { Lock, Cookie, Mail } from 'lucide-react';
 import { PageRoute } from '../types';
 
@@ -10,9 +9,6 @@ interface PrivacyPolicyPageProps {
 export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate }) => {
   return (
     <div className="w-full space-y-8">
-      {/* Top Ad Slot */}
-      <AdSlot id="ad-slot-top" format="banner" />
-
       {/* Page Header */}
       <div className="border-b border-[#1E2E52] pb-4">
         <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F8FAFC]">
@@ -57,23 +53,18 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
         <section className="space-y-3 pt-4 border-t border-[#1E2E52]">
           <h2 className="font-heading text-lg sm:text-xl font-bold text-[#F8FAFC] flex items-center gap-2">
             <Cookie className="w-5 h-5 text-[#00F0FF]" />
-            <span>3. Third-Party Advertising & Cookie Disclosure</span>
+            <span>3. Cookies & Local Browser Storage</span>
           </h2>
           <p>
-            Toolzbasket is a complimentary platform sustained through unobtrusive digital banner sponsorships provided by third-party advertising partners (such as Adsterra and other vetted digital ad networks).
+            Toolzbasket is a complimentary platform designed to run client-side. We do not use persistent tracking cookies or user profiling mechanisms.
           </p>
           <p>
-            Third-party ad networks utilize technologies such as cookies, JavaScript, or Web Beacons within their sponsored slots. When an ad script is fetched, advertising partners automatically receive IP headers to deliver geographically compliant units.
+            Any temporary application preferences (such as tool settings or local options) are stored strictly within your browser's local session storage and never transmitted to external analytics servers.
           </p>
           <p className="text-xs text-[#94A3B8] bg-[#0D1527] p-3 rounded-[3px] border border-[#1E2E52]">
-            <strong>Notice:</strong> Toolzbasket does not manage, read, or monetize advertiser cookies. You may inspect the specific policies of these third-party networks or configure browser privacy extensions to customize tracking settings.
+            <strong>Notice:</strong> Toolzbasket does not track, sell, or monetize user data. You may configure browser privacy extensions to inspect or manage all local storage settings at any time.
           </p>
         </section>
-
-        {/* Infeed Ad Slot */}
-        <div className="py-2">
-          <AdSlot id="ad-slot-infeed" format="infeed" />
-        </div>
 
         {/* Log files & telemetry */}
         <section className="space-y-3 pt-4 border-t border-[#1E2E52]">

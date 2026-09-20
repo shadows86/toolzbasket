@@ -1,6 +1,5 @@
 import React from 'react';
 import { QrTool } from '../components/QrTool';
-import { AdSlot } from '../components/AdSlot';
 import {
   Layers,
   CheckCircle2,
@@ -20,25 +19,9 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   return (
-    <div className="w-full space-y-4 sm:space-y-5">
-      {/* 1. HEADER BANNER AD (728x90 leaderboard desktop / 320x50 mobile) */}
-      <div
-        id="header-banner-ad-container"
-        className="ad-container-default ad-header-slot ad-shimmer w-full flex justify-center bg-transparent min-h-[50px] md:min-h-[90px] overflow-visible"
-        style={{
-          display: 'block',
-          visibility: 'visible',
-          opacity: 1,
-          overflow: 'visible',
-          minHeight: '90px',
-          background: 'transparent',
-        }}
-      >
-        <AdSlot id="ad-slot-top" format="banner" />
-      </div>
-
+    <div className="w-full space-y-6">
       {/* Main Tool Introduction Banner / Minimal Gap Hero Heading */}
-      <div className="border-b border-[#1E2E52] pb-2.5">
+      <div className="border-b border-[#1E2E52] pb-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h1 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
@@ -55,105 +38,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Layout: Left Sidebar (Desktop only) + Center Main Tool & Content + Right Sidebar */}
+      {/* Layout: Center Main Tool & Content + Right Sidebar */}
       <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start w-full">
-        {/* 3. LEFT SIDEBAR AD (300x250) - Mirror of right column, Desktop only (>=1024px) */}
-        <aside
-          id="left-sidebar-ad-container"
-          className="hidden lg:block w-[300px] shrink-0 space-y-5"
-          style={{
-            display: 'block',
-            visibility: 'visible',
-            opacity: 1,
-            overflow: 'visible',
-          }}
-        >
-          {/* Ad Container with small gray Advertisement label */}
-          <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
-            <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
-              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
-                Advertisement
-              </span>
-              <span className="text-[10px] font-mono text-[#475569]">
-                300 × 250
-              </span>
-            </div>
-
-            <div
-              id="left-sidebar-ad-box"
-              className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
-              style={{
-                display: 'block',
-                visibility: 'visible',
-                opacity: 1,
-                overflow: 'visible',
-                minHeight: '250px',
-              }}
-            >
-              <AdSlot
-                id="ad-slot-left-sidebar"
-                format="sidebar"
-              />
-            </div>
-          </div>
-
-          {/* Quick Sizing Calibration Card (Mirror of right column) */}
-          <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
-            <p className="font-heading text-xs font-bold text-[#F8FAFC]">
-              Printing & Scanning
-            </p>
-            <p className="text-xs text-[#94A3B8] mt-1 mb-3">
-              Maintain a 10:1 distance-to-size ratio and at least 2cm for handheld scans.
-            </p>
-            <button
-              onClick={() => onNavigate('/faq')}
-              className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
-            >
-              View FAQ Answers
-            </button>
-          </div>
-        </aside>
-
         {/* Center: Main QR Tool & In-Depth Content */}
         <div className="flex-1 min-w-0 space-y-6 w-full">
           {/* Main QR Tool */}
           <QrTool />
 
-          {/* 4. IN-CONTENT AD (468x60 or 300x250) - Inserted between tool and FAQ/Guide */}
-          <div
-            id="incontent-ad-wrapper"
-            className="w-full flex flex-col items-center justify-center my-8 mx-auto"
-            style={{
-              display: 'block',
-              visibility: 'visible',
-              opacity: 1,
-              overflow: 'visible',
-            }}
-          >
-            <div className="flex justify-center w-full">
-              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider mb-1.5 select-none text-center">
-                Sponsored
-              </span>
-            </div>
-            <div
-              id="incontent-ad-container"
-              className="ad-container-default ad-incontent-slot ad-shimmer w-full max-w-[468px] mx-auto flex items-center justify-center min-h-[90px]"
-              style={{
-                display: 'block',
-                visibility: 'visible',
-                opacity: 1,
-                overflow: 'visible',
-                minHeight: '90px',
-              }}
-            >
-              <AdSlot
-                id="ad-slot-incontent"
-                format="incontent"
-              />
-            </div>
-          </div>
-
-          {/* How to Use & FAQs Quick Section (inserted below in-content ad) */}
+          {/* How to Use & FAQs Quick Section */}
           <section
             id="how-to-use-and-faq-overview"
             className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-5 sm:p-6 shadow-xl space-y-4"
@@ -295,87 +187,67 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </section>
         </div>
 
-        {/* 2. RIGHT SIDEBAR AD (300x250) + System Specifications */}
+        {/* Right Sidebar: System Specifications & Calibration Guide */}
         <aside
-          id="right-sidebar-ad-container"
           className="hidden md:block w-full lg:w-[300px] shrink-0 space-y-5"
-          style={{
-            display: 'block',
-            visibility: 'visible',
-            opacity: 1,
-            overflow: 'visible',
-          }}
         >
-          {/* Right column ad slot: styled container with Advertisement label */}
-          <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-3.5 shadow-lg">
-            <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-[#1E2E52]/80">
-              <span className="text-[10px] font-mono text-[#64748B] uppercase tracking-wider">
-                Advertisement
-              </span>
-              <span className="text-[10px] font-mono text-[#475569]">
-                300 × 250
-              </span>
-            </div>
-
-            <div
-              id="right-sidebar-ad-box"
-              className="ad-container-default ad-sidebar-slot ad-shimmer relative w-full max-w-[300px] mx-auto flex items-center justify-center min-h-[250px]"
-              style={{
-                display: 'block',
-                visibility: 'visible',
-                opacity: 1,
-                overflow: 'visible',
-                minHeight: '250px',
-              }}
-            >
-              <AdSlot
-                id="ad-slot-sidebar"
-                format="sidebar"
-              />
-            </div>
+          {/* System Technical Specifications */}
+          <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-4 space-y-3 shadow-lg">
+            <h3 className="font-heading text-xs font-bold uppercase tracking-wider text-[#F8FAFC] pb-2 border-b border-[#1E2E52]">
+              System Specifications
+            </h3>
+            <ul className="space-y-2 text-xs text-[#94A3B8]">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
+                <span>Zero telemetry or server tracking</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
+                <span>Lossless high-res PNG export</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
+                <span>ISO/IEC 18004 barcode compliance</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
+                <span>Full offline in-memory execution</span>
+              </li>
+            </ul>
           </div>
 
-            {/* System Technical Specifications */}
-            <div className="bg-[#10182E] border border-[#1E2E52] rounded-[4px] p-4 space-y-3 shadow-lg">
-              <h3 className="font-heading text-xs font-bold uppercase tracking-wider text-[#F8FAFC] pb-2 border-b border-[#1E2E52]">
-                System Specifications
-              </h3>
-              <ul className="space-y-2 text-xs text-[#94A3B8]">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
-                  <span>Zero telemetry or server tracking</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
-                  <span>Lossless high-res PNG export</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
-                  <span>ISO/IEC 18004 barcode compliance</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
-                  <span>Full offline in-memory execution</span>
-                </li>
-              </ul>
-            </div>
+          {/* Quick Sizing Calibration Card */}
+          <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
+            <p className="font-heading text-xs font-bold text-[#F8FAFC]">
+              Printing & Scanning
+            </p>
+            <p className="text-xs text-[#94A3B8] mt-1 mb-3">
+              Maintain a 10:1 distance-to-size ratio and at least 2cm for handheld scans.
+            </p>
+            <button
+              onClick={() => onNavigate('/faq')}
+              className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
+            >
+              View FAQ Answers
+            </button>
+          </div>
 
-            {/* Quick Help Link */}
-            <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
-              <p className="font-heading text-xs font-bold text-[#F8FAFC]">
-                Calibration & Sizing Guide
-              </p>
-              <p className="text-xs text-[#94A3B8] mt-1 mb-3">
-                Learn print size formulas, distance ratios, and error correction recommendations.
-              </p>
-              <button
-                onClick={() => onNavigate('/how-to-use')}
-                className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
-              >
-                View Step-by-Step Guide
-              </button>
-            </div>
-          </aside>
+          {/* Quick Help Link */}
+          <div className="bg-[#0D1527] border border-[#1E2E52] rounded-[4px] p-4">
+            <p className="font-heading text-xs font-bold text-[#F8FAFC]">
+              Calibration & Sizing Guide
+            </p>
+            <p className="text-xs text-[#94A3B8] mt-1 mb-3">
+              Learn print size formulas, distance ratios, and error correction recommendations.
+            </p>
+            <button
+              onClick={() => onNavigate('/how-to-use')}
+              className="w-full py-1.5 px-3 bg-[#141F3A] hover:bg-[#1E2E52] text-xs font-semibold text-[#00F0FF] border border-[#00F0FF]/30 rounded-[3px] transition-colors"
+            >
+              View Step-by-Step Guide
+            </button>
+          </div>
+        </aside>
         </div>
 
       {/* More Tools Coming Soon Compartment */}
