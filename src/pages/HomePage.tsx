@@ -45,6 +45,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           {/* Main QR Tool */}
           <QrTool />
 
+          {/* RevBid Square / MPU Ad (300x250) — Between tool area and description/article text */}
+          <div className="w-full flex flex-col items-center justify-center mt-[105px] mb-[20px]">
+            <span className="text-[10px] tracking-wider uppercase text-[#64748B] mb-1 select-none font-mono">
+              Advertisement
+            </span>
+            <div
+              data-placement-id="revbid-square"
+              id="revbid-square-15943"
+              style={{ minWidth: '300px', minHeight: '250px', textAlign: 'center' }}
+            ></div>
+          </div>
+
           {/* How to Use & FAQs Quick Section */}
           <section
             id="how-to-use-and-faq-overview"
@@ -246,6 +258,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             >
               View Step-by-Step Guide
             </button>
+          </div>
+
+          {/* RevBid Large Skyscraper Ad (120x600) — Desktop only (>=1024px), Sticky Sidebar */}
+          <div className="hidden lg:flex flex-col items-center justify-center sticky top-24 mt-[105px] mb-[20px]">
+            <span className="text-[10px] tracking-wider uppercase text-[#64748B] mb-1 select-none font-mono">
+              Advertisement
+            </span>
+            <div
+              data-placement-id="revbid-big-skyscraper"
+              id="revbid-big-skyscraper-5238"
+              style={{ minWidth: '120px', minHeight: '600px', textAlign: 'center' }}
+            ></div>
           </div>
         </aside>
         </div>

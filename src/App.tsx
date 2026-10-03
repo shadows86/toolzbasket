@@ -134,10 +134,34 @@ export default function App() {
       {/* Top Navigation Header */}
       <Header currentPath={currentPath} onNavigate={navigate} />
 
+      {/* RevBid Leaderboard Ad — Directly below header/navigation, above main content, centered */}
+      <div className="w-full flex flex-col items-center justify-center my-[20px] px-4 overflow-x-auto">
+        <span className="text-[10px] tracking-wider uppercase text-[#64748B] mb-1 select-none font-mono">
+          Advertisement
+        </span>
+        <div
+          data-placement-id="revbid-leaderboard"
+          id="revbid-leaderboard-11840"
+          style={{ minWidth: '468px', minHeight: '60px', textAlign: 'center' }}
+        ></div>
+      </div>
+
       {/* Main Page Workspace Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {renderCurrentPage()}
       </main>
+
+      {/* RevBid Billboard Ad — Full-width above footer, hidden on mobile */}
+      <div className="hidden sm:flex w-full flex-col items-center justify-center my-[20px] px-4">
+        <span className="text-[10px] tracking-wider uppercase text-[#64748B] mb-1 select-none font-mono">
+          Advertisement
+        </span>
+        <div
+          data-placement-id="revbid-big-leaderboard"
+          id="revbid-big-leaderboard-6148"
+          style={{ minWidth: '468px', minHeight: '60px', textAlign: 'center' }}
+        ></div>
+      </div>
 
       {/* Global Footer */}
       <Footer onNavigate={navigate} />
